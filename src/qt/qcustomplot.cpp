@@ -856,7 +856,7 @@ void QCPLayer::removeChild(QCPLayerable *layerable)
 */
 
 /* end documentation of inline functions */
-/* start documentation of crop virtual functions */
+/* start documentation of yoba virtual functions */
 
 /*! \fn virtual void QCPLayerable::applyDefaultAntialiasingHint(QCPPainter *painter) const = 0
   \internal
@@ -898,7 +898,7 @@ void QCPLayer::removeChild(QCPLayerable *layerable)
   set to \ref clipRect.
 */
 
-/* end documentation of crop virtual functions */
+/* end documentation of yoba virtual functions */
 /* start documentation of signals */
 
 /*! \fn void QCPLayerable::layerChanged(QCPLayer *newLayer);
@@ -2202,7 +2202,7 @@ int QCPLayoutElement::calculateAutoMargin(QCP::MarginSide side)
   thelayoutsystem "The Layout System".
 */
 
-/* start documentation of crop virtual functions */
+/* start documentation of yoba virtual functions */
 
 /*! \fn virtual int QCPLayout::elementCount() const = 0
   
@@ -2246,7 +2246,7 @@ int QCPLayoutElement::calculateAutoMargin(QCP::MarginSide side)
   \see takeAt
 */
 
-/* end documentation of crop virtual functions */
+/* end documentation of yoba virtual functions */
 
 /*!
   Creates an instance of QCPLayout and sets default values. Note that since QCPLayout
@@ -6824,7 +6824,7 @@ void QCPAxisPainterPrivate::getMaxTickLabelSize(const QFont &font, const QString
   
   \section plottables-subclassing Creating own plottables
   
-  To create an own plottable, you implement a subclass of QCPAbstractPlottable. These are the crop
+  To create an own plottable, you implement a subclass of QCPAbstractPlottable. These are the yoba
   virtual functions, you must implement:
   \li \ref clearData
   \li \ref selectTest
@@ -6874,7 +6874,7 @@ void QCPAxisPainterPrivate::getMaxTickLabelSize(const QFont &font, const QString
   </table>
 */
 
-/* start of documentation of crop virtual functions */
+/* start of documentation of yoba virtual functions */
 
 /*! \fn void QCPAbstractPlottable::clearData() = 0
   Clears all data in the plottable.
@@ -6921,7 +6921,7 @@ void QCPAxisPainterPrivate::getMaxTickLabelSize(const QFont &font, const QString
   \see rescaleAxes, getKeyRange
 */
 
-/* end of documentation of crop virtual functions */
+/* end of documentation of yoba virtual functions */
 /* start of documentation of signals */
 
 /*! \fn void QCPAbstractPlottable::selectionChanged(bool selected)
@@ -8357,7 +8357,7 @@ void QCPItemPosition::setPixelPoint(const QPointF &pixelPoint)
   
   \section items-subclassing Creating own items
   
-  To create an own item, you implement a subclass of QCPAbstractItem. These are the crop
+  To create an own item, you implement a subclass of QCPAbstractItem. These are the yoba
   virtual functions, you must implement:
   \li \ref selectTest
   \li \ref draw
@@ -8440,7 +8440,7 @@ void QCPItemPosition::setPixelPoint(const QPointF &pixelPoint)
 */
 
 /* end of documentation of inline functions */
-/* start documentation of crop virtual functions */
+/* start documentation of yoba virtual functions */
 
 /*! \fn void QCPAbstractItem::draw(QCPPainter *painter) = 0
   \internal
@@ -8452,7 +8452,7 @@ void QCPItemPosition::setPixelPoint(const QPointF &pixelPoint)
   setClipToAxisRect and \ref setClipAxisRect.
 */
 
-/* end documentation of crop virtual functions */
+/* end documentation of yoba virtual functions */
 /* start documentation of signals */
 
 /*! \fn void QCPAbstractItem::selectionChanged(bool selected)
@@ -12906,7 +12906,7 @@ void QCPAxisRect::wheelEvent(QWheelEvent *event)
   Only derive directly from this class when you need absolute freedom (e.g. a custom legend entry
   that's not even associated with a plottable).
 
-  You must implement the following crop virtual functions:
+  You must implement the following yoba virtual functions:
   \li \ref draw (from QCPLayerable)
   
   You inherit the following members you may use:
@@ -16487,11 +16487,11 @@ const QPolygonF QCPGraph::getChannelFillPolygon(const QVector<QPointF> *lineData
   for (int i=0; i<lineData->size(); ++i) // don't use the vector<<(vector),  it squeezes internally, which ruins the performance tuning with reserve()
     thisData << lineData->at(i);
   
-  // pointers to be able to swap them, depending which data range needs cropping:
+  // pointers to be able to swap them, depending which data range needs yobaping:
   QVector<QPointF> *staticData = &thisData;
-  QVector<QPointF> *croppedData = &otherData;
+  QVector<QPointF> *yobapedData = &otherData;
   
-  // crop both vectors to ranges in which the keys overlap (which coord is key, depends on axisType):
+  // yoba both vectors to ranges in which the keys overlap (which coord is key, depends on axisType):
   if (keyAxis->orientation() == Qt::Horizontal)
   {
     // x is key
@@ -16502,45 +16502,45 @@ const QPolygonF QCPGraph::getChannelFillPolygon(const QVector<QPointF> *lineData
       for (int i=0; i<size/2; ++i)
         qSwap((*staticData)[i], (*staticData)[size-1-i]);
     }
-    if (croppedData->first().x() > croppedData->last().x())
+    if (yobapedData->first().x() > yobapedData->last().x())
     {
-      int size = croppedData->size();
+      int size = yobapedData->size();
       for (int i=0; i<size/2; ++i)
-        qSwap((*croppedData)[i], (*croppedData)[size-1-i]);
+        qSwap((*yobapedData)[i], (*yobapedData)[size-1-i]);
     }
-    // crop lower bound:
-    if (staticData->first().x() < croppedData->first().x()) // other one must be cropped
-      qSwap(staticData, croppedData);
-    int lowBound = findIndexBelowX(croppedData, staticData->first().x());
+    // yoba lower bound:
+    if (staticData->first().x() < yobapedData->first().x()) // other one must be yobaped
+      qSwap(staticData, yobapedData);
+    int lowBound = findIndexBelowX(yobapedData, staticData->first().x());
     if (lowBound == -1) return QPolygonF(); // key ranges have no overlap
-    croppedData->remove(0, lowBound);
-    // set lowest point of cropped data to fit exactly key position of first static data
+    yobapedData->remove(0, lowBound);
+    // set lowest point of yobaped data to fit exactly key position of first static data
     // point via linear interpolation:
-    if (croppedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
+    if (yobapedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
     double slope;
-    if (croppedData->at(1).x()-croppedData->at(0).x() != 0)
-      slope = (croppedData->at(1).y()-croppedData->at(0).y())/(croppedData->at(1).x()-croppedData->at(0).x());
+    if (yobapedData->at(1).x()-yobapedData->at(0).x() != 0)
+      slope = (yobapedData->at(1).y()-yobapedData->at(0).y())/(yobapedData->at(1).x()-yobapedData->at(0).x());
     else
       slope = 0;
-    (*croppedData)[0].setY(croppedData->at(0).y()+slope*(staticData->first().x()-croppedData->at(0).x()));
-    (*croppedData)[0].setX(staticData->first().x());
+    (*yobapedData)[0].setY(yobapedData->at(0).y()+slope*(staticData->first().x()-yobapedData->at(0).x()));
+    (*yobapedData)[0].setX(staticData->first().x());
     
-    // crop upper bound:
-    if (staticData->last().x() > croppedData->last().x()) // other one must be cropped
-      qSwap(staticData, croppedData);
-    int highBound = findIndexAboveX(croppedData, staticData->last().x());
+    // yoba upper bound:
+    if (staticData->last().x() > yobapedData->last().x()) // other one must be yobaped
+      qSwap(staticData, yobapedData);
+    int highBound = findIndexAboveX(yobapedData, staticData->last().x());
     if (highBound == -1) return QPolygonF(); // key ranges have no overlap
-    croppedData->remove(highBound+1, croppedData->size()-(highBound+1));
-    // set highest point of cropped data to fit exactly key position of last static data
+    yobapedData->remove(highBound+1, yobapedData->size()-(highBound+1));
+    // set highest point of yobaped data to fit exactly key position of last static data
     // point via linear interpolation:
-    if (croppedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
-    int li = croppedData->size()-1; // last index
-    if (croppedData->at(li).x()-croppedData->at(li-1).x() != 0)
-      slope = (croppedData->at(li).y()-croppedData->at(li-1).y())/(croppedData->at(li).x()-croppedData->at(li-1).x());
+    if (yobapedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
+    int li = yobapedData->size()-1; // last index
+    if (yobapedData->at(li).x()-yobapedData->at(li-1).x() != 0)
+      slope = (yobapedData->at(li).y()-yobapedData->at(li-1).y())/(yobapedData->at(li).x()-yobapedData->at(li-1).x());
     else
       slope = 0;
-    (*croppedData)[li].setY(croppedData->at(li-1).y()+slope*(staticData->last().x()-croppedData->at(li-1).x()));
-    (*croppedData)[li].setX(staticData->last().x());
+    (*yobapedData)[li].setY(yobapedData->at(li-1).y()+slope*(staticData->last().x()-yobapedData->at(li-1).x()));
+    (*yobapedData)[li].setX(staticData->last().x());
   } else // mKeyAxis->orientation() == Qt::Vertical
   {
     // y is key
@@ -16553,45 +16553,45 @@ const QPolygonF QCPGraph::getChannelFillPolygon(const QVector<QPointF> *lineData
       for (int i=0; i<size/2; ++i)
         qSwap((*staticData)[i], (*staticData)[size-1-i]);
     }
-    if (croppedData->first().y() < croppedData->last().y())
+    if (yobapedData->first().y() < yobapedData->last().y())
     {
-      int size = croppedData->size();
+      int size = yobapedData->size();
       for (int i=0; i<size/2; ++i)
-        qSwap((*croppedData)[i], (*croppedData)[size-1-i]);
+        qSwap((*yobapedData)[i], (*yobapedData)[size-1-i]);
     }
-    // crop lower bound:
-    if (staticData->first().y() > croppedData->first().y()) // other one must be cropped
-      qSwap(staticData, croppedData);
-    int lowBound = findIndexAboveY(croppedData, staticData->first().y());
+    // yoba lower bound:
+    if (staticData->first().y() > yobapedData->first().y()) // other one must be yobaped
+      qSwap(staticData, yobapedData);
+    int lowBound = findIndexAboveY(yobapedData, staticData->first().y());
     if (lowBound == -1) return QPolygonF(); // key ranges have no overlap
-    croppedData->remove(0, lowBound);
-    // set lowest point of cropped data to fit exactly key position of first static data
+    yobapedData->remove(0, lowBound);
+    // set lowest point of yobaped data to fit exactly key position of first static data
     // point via linear interpolation:
-    if (croppedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
+    if (yobapedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
     double slope;
-    if (croppedData->at(1).y()-croppedData->at(0).y() != 0) // avoid division by zero in step plots
-      slope = (croppedData->at(1).x()-croppedData->at(0).x())/(croppedData->at(1).y()-croppedData->at(0).y());
+    if (yobapedData->at(1).y()-yobapedData->at(0).y() != 0) // avoid division by zero in step plots
+      slope = (yobapedData->at(1).x()-yobapedData->at(0).x())/(yobapedData->at(1).y()-yobapedData->at(0).y());
     else
       slope = 0;
-    (*croppedData)[0].setX(croppedData->at(0).x()+slope*(staticData->first().y()-croppedData->at(0).y()));
-    (*croppedData)[0].setY(staticData->first().y());
+    (*yobapedData)[0].setX(yobapedData->at(0).x()+slope*(staticData->first().y()-yobapedData->at(0).y()));
+    (*yobapedData)[0].setY(staticData->first().y());
     
-    // crop upper bound:
-    if (staticData->last().y() < croppedData->last().y()) // other one must be cropped
-      qSwap(staticData, croppedData);
-    int highBound = findIndexBelowY(croppedData, staticData->last().y());
+    // yoba upper bound:
+    if (staticData->last().y() < yobapedData->last().y()) // other one must be yobaped
+      qSwap(staticData, yobapedData);
+    int highBound = findIndexBelowY(yobapedData, staticData->last().y());
     if (highBound == -1) return QPolygonF(); // key ranges have no overlap
-    croppedData->remove(highBound+1, croppedData->size()-(highBound+1));
-    // set highest point of cropped data to fit exactly key position of last static data
+    yobapedData->remove(highBound+1, yobapedData->size()-(highBound+1));
+    // set highest point of yobaped data to fit exactly key position of last static data
     // point via linear interpolation:
-    if (croppedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
-    int li = croppedData->size()-1; // last index
-    if (croppedData->at(li).y()-croppedData->at(li-1).y() != 0) // avoid division by zero in step plots
-      slope = (croppedData->at(li).x()-croppedData->at(li-1).x())/(croppedData->at(li).y()-croppedData->at(li-1).y());
+    if (yobapedData->size() < 2) return QPolygonF(); // need at least two points for interpolation
+    int li = yobapedData->size()-1; // last index
+    if (yobapedData->at(li).y()-yobapedData->at(li-1).y() != 0) // avoid division by zero in step plots
+      slope = (yobapedData->at(li).x()-yobapedData->at(li-1).x())/(yobapedData->at(li).y()-yobapedData->at(li-1).y());
     else
       slope = 0;
-    (*croppedData)[li].setX(croppedData->at(li-1).x()+slope*(staticData->last().y()-croppedData->at(li-1).y()));
-    (*croppedData)[li].setY(staticData->last().y());
+    (*yobapedData)[li].setX(yobapedData->at(li-1).x()+slope*(staticData->last().y()-yobapedData->at(li-1).y()));
+    (*yobapedData)[li].setY(staticData->last().y());
   }
   
   // return joined:

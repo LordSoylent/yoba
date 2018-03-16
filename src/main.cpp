@@ -47,7 +47,7 @@ set<pair<COutPoint, unsigned int> > setStakeSeen;
 
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 
-unsigned int nStakeMinAge = 8 * 60 * 60; // 8 hours
+unsigned int nStakeMinAge = 1 * 60 * 60; // 1 hour
 unsigned int nModifierInterval = 8 * 60; // time to elapse before new modifier is computed
 
 int nCoinbaseMaturity = 50;
@@ -81,7 +81,7 @@ map<uint256, set<uint256> > mapOrphanTransactionsByPrev;
 // Constant stuff for coinbase transactions we create:
 CScript COINBASE_FLAGS;
 
-const string strMessageMagic = "CropCoin Signed Message:\n";
+const string strMessageMagic = "YobaCoin Signed Message:\n";
 
 std::set<uint256> setValidatedTx;
 
@@ -1358,33 +1358,18 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
     int64_t nSubsidy = 0;
 
     if (nHeight == 1) {
-        nSubsidy = 2000000 * COIN;
-    } else if (nHeight > 1 && nHeight <= 4000) {
-        nSubsidy = 20 * COIN;
-    } else if (nHeight > 4000 && nHeight <= 20000) {
-        nSubsidy = 15 * COIN;
-    }
-    
+        nSubsidy = 6500000 * COIN;
+    } else if (nHeight > 1 && nHeight <= 200) {
+        nSubsidy = 1 * COIN;
+    }    
     return nSubsidy + nFees;
 }
 
 // miner's coin stake reward
 int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nCoinAge, int64_t nFees)
 {
-    int64_t nSubsidy = 0 * COIN;
-    
-    if (pindexBest->nHeight+1 > 1 && pindexBest->nHeight+1 <= 20000) {
-        nSubsidy = 25 * COIN;
-    }
-    else if (pindexBest->nHeight+1 > 20000 && pindexBest->nHeight+1 <= 540000)
-    {
-        nSubsidy = 120 * COIN;
-    }
-    else if (pindexBest->nHeight+1 > 540000)    
-    {
-        nSubsidy = 20 * COIN;
-    }
-    
+    int64_t nSubsidy = STATIC_POS_REWARD;
+   
     return nSubsidy + nFees;
 }
 
@@ -2529,7 +2514,7 @@ bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig) c
 
                     CTxDestination address1;
                     ExtractDestination(payee, address1);
-                    CCropCoincoinAddress address2(address1);
+                    CYobaCoincoinAddress address2(address1);
 
                     if(!foundPaymentAndPayee) {
                         if(fDebug) { LogPrintf("CheckBlock() : Couldn't find masternode payment(%d|%d) or payee(%d|%s) nHeight %d. \n", foundPaymentAmount, masternodePaymentAmount, foundPayee, address2.ToString().c_str(), pindexBest->nHeight+1); }
@@ -3230,7 +3215,7 @@ struct CImportingNow
 
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
-    RenameThread("crop-loadblk");
+    RenameThread("yoba-loadblk");
 
     CImportingNow imp;
 

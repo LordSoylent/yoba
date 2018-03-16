@@ -34,7 +34,7 @@ SendMessagesDialog::SendMessagesDialog(Mode mode, Type type, QWidget *parent) :
 #if QT_VERSION >= 0x040700
      /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     if(mode == SendMessagesDialog::Encrypted)
-        ui->addressFrom->setPlaceholderText(tr("Enter a CropCoin address (e.g. c25gtaAQYBUNjYrxzZqNdyADSmwPPpWoLC)"));
+        ui->addressFrom->setPlaceholderText(tr("Enter a YobaCoin address (e.g. YYrNgzS7egD4npo8voHNtWPV3VhRpLiYVF)"));
  #endif
     addEntry();
 

@@ -66,13 +66,13 @@ void OptionsModel::Init()
     if (!settings.contains("nDarksendRounds"))
         settings.setValue("nDarksendRounds", 2);
     nDarksendRounds = settings.value("nDarksendRounds").toLongLong();
-    if (!settings.contains("nAnonymizeCropCoinAmount"))
-        settings.setValue("nAnonymizeCropCoinAmount", 1000);
-    nAnonymizeCropCoinAmount = settings.value("nAnonymizeCropCoinAmount").toLongLong();
+    if (!settings.contains("nAnonymizeYobaCoinAmount"))
+        settings.setValue("nAnonymizeYobaCoinAmount", 1000);
+    nAnonymizeYobaCoinAmount = settings.value("nAnonymizeYobaCoinAmount").toLongLong();
     if (settings.contains("nDarksendRounds"))
         SoftSetArg("-darksendrounds", settings.value("nDarksendRounds").toString().toStdString());
-    if (settings.contains("nAnonymizeCropCoinAmount"))
-        SoftSetArg("-anonymizetraveamount", settings.value("nAnonymizeCropCoinAmount").toString().toStdString());
+    if (settings.contains("nAnonymizeYobaCoinAmount"))
+        SoftSetArg("-anonymizetraveamount", settings.value("nAnonymizeYobaCoinAmount").toString().toStdString());
 
 
 
@@ -206,8 +206,8 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return fCoinControlFeatures;
         case DarksendRounds:
             return QVariant(nDarksendRounds);
-        case AnonymizeCropCoinAmount:
-            return QVariant(nAnonymizeCropCoinAmount);
+        case AnonymizeYobaCoinAmount:
+            return QVariant(nAnonymizeYobaCoinAmount);
         case UseBlackTheme:
             return QVariant(fUseBlackTheme);
         default:
@@ -318,10 +318,10 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             settings.setValue("nDarksendRounds", nDarksendRounds);
             emit darksendRoundsChanged(nDarksendRounds);
             break;
-        case AnonymizeCropCoinAmount:
-            nAnonymizeCropCoinAmount = value.toInt();
-            settings.setValue("nAnonymizeCropCoinAmount", nAnonymizeCropCoinAmount);
-            emit AnonymizeCropCoinAmountChanged(nAnonymizeCropCoinAmount);
+        case AnonymizeYobaCoinAmount:
+            nAnonymizeYobaCoinAmount = value.toInt();
+            settings.setValue("nAnonymizeYobaCoinAmount", nAnonymizeYobaCoinAmount);
+            emit AnonymizeYobaCoinAmountChanged(nAnonymizeYobaCoinAmount);
             break;
         default:
             break;

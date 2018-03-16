@@ -166,7 +166,7 @@ public:
 
 
 // -- get at the data
-class CCropCoincoinAddress_B : public CCropCoincoinAddress
+class CYobaCoincoinAddress_B : public CYobaCoincoinAddress
 {
 public:
     uint8_t getVersion()

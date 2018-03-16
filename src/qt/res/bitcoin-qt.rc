@@ -1,4 +1,4 @@
-IDI_ICON1 ICON DISCARDABLE "icons/crop.ico"
+IDI_ICON1 ICON DISCARDABLE "icons/yoba.ico"
 
 #include <windows.h>             // needed for VERSIONINFO
 #include "../../clientversion.h" // holds the needed client version information
@@ -18,14 +18,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "CropCoin"
-            VALUE "FileDescription",    "CropCoin-Qt (OSS GUI client for CropCoin)"
+            VALUE "CompanyName",        "YobaCoin"
+            VALUE "FileDescription",    "YobaCoin-Qt (OSS GUI client for YobaCoin)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "crop-qt"
-            VALUE "LegalCopyright",     "2009-2014 The Bitcoin developers, 2012-2014 The NovaCoin & PPCoin developers, 2015-2017 The CropCoin developers"
+            VALUE "InternalName",       "yoba-qt"
+            VALUE "LegalCopyright",     "2009-2014 The Bitcoin developers, 2012-2014 The NovaCoin & PPCoin developers, 2015-2017 The YobaCoin developers"
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "crop-qt.exe"
-            VALUE "ProductName",        "CropCoin-Qt"
+            VALUE "OriginalFilename",   "yoba-qt.exe"
+            VALUE "ProductName",        "YobaCoin-Qt"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

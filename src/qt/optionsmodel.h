@@ -42,7 +42,7 @@ public:
         CoinControlFeatures,    // bool
         UseBlackTheme,     // bool
         DarksendRounds,    // int
-        AnonymizeCropCoinAmount, //int
+        AnonymizeYobaCoinAmount, //int
         OptionIDRowCount,
     };
 
@@ -84,7 +84,7 @@ signals:
     void reserveBalanceChanged(qint64);
     void coinControlFeaturesChanged(bool);
     void darksendRoundsChanged(int);
-    void AnonymizeCropCoinAmountChanged(int);
+    void AnonymizeYobaCoinAmountChanged(int);
 };
 
 #endif // OPTIONSMODEL_H

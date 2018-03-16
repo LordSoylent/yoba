@@ -70,11 +70,8 @@ public:
     int RPCPort() const { return nRPCPort; }
     int LastPOWBlock() const { return nLastPOWBlock; }
     int POSStartBlock() const { return nPOSStartBlock; }
-    int MasternodePaymentStartBlock() const { return nMasternodePaymentStartBlock; }
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
     std::string DarksendPoolDummyAddress() const { return strDarksendPoolDummyAddress; }
-    //std::string SporkKey() const { return strSporkKey; }
-    //std::string MasternodePaymentPubKey() const { return strMasternodePaymentsPubKey; }
 protected:
     CChainParams() {};
 
@@ -91,11 +88,8 @@ protected:
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
     int nLastPOWBlock;
     int nPOSStartBlock;
-    int nMasternodePaymentStartBlock;
     int nPoolMaxTransactions;
     std::string strDarksendPoolDummyAddress;
-    //std::string strSporkKey;
-    //std::string strMasternodePaymentsPubKey;
 };
 
 /**

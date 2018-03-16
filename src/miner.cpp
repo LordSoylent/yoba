@@ -168,7 +168,7 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, bool fProofOfStake, int64_t* pFe
     {
         LOCK2(cs_main, mempool.cs);
         CTxDB txdb("r");
-//>CROP<
+//>YOBA<
 
         // Priority order to process transactions
         list<COrphan> vOrphan; // list memory doesn't move
@@ -355,91 +355,8 @@ CBlock* CreateNewBlock(CReserveKey& reservekey, bool fProofOfStake, int64_t* pFe
 
         if(!fProofOfStake) {
             
-            /*int payments = 1;
-            CScript payeerewardaddress = CScript();
-            int payeerewardpercent = 0;
-
-            CScript payee;
-            CTxIn vin;
-            bool hasPayment = true;
-            if (nHeight < Params().MasternodePaymentStartBlock()) {
-                LogPrintf ("Masternode payments is disabled at height:%d\n", nHeight);
-                hasPayment = false;
-            }
-                
-            if(!masternodePayments.GetBlockPayee(pindexPrev->nHeight+1, payee, vin)){
-                CMasternode* winningNode = mnodeman.GetCurrentMasterNode(1);
-                if(winningNode){
-                    payee = GetScriptForDestination(winningNode->pubkey.GetID());
-                    payeerewardaddress = winningNode->rewardAddress;
-                    payeerewardpercent = winningNode->rewardPercentage;
-                } else {
-                    LogPrintf("CreateNewBlock: Failed to detect masternode to pay\n");
-                    hasPayment = false;
-                }
-            }
-
-            // If reward percent is 0 or 100 then send all to masternode or reward address
-            if(hasPayment && (payeerewardpercent == 0 || payeerewardpercent == 100)){
-                ++payments;
-                pblock->vtx[0].vout.resize(payments);
-                if (payeerewardpercent == 0){
-                    pblock->vtx[0].vout[1].scriptPubKey = payee;
-                } else if (payeerewardpercent == 100){
-                    pblock->vtx[0].vout[1].scriptPubKey = payeerewardaddress;
-                }
-                pblock->vtx[0].vout[1].nValue = 0;
-
-                CTxDestination address1;
-                ExtractDestination(payee, address1);
-                CCropCoincoinAddress address2(address1);
-
-                LogPrintf("Masternode payment to %s\n", address2.ToString().c_str());
-            }
-
-            // If reward percent more than 0 and lower than 100 then split reward
-            if(hasPayment && payeerewardpercent > 0 && payeerewardpercent < 100){
-                ++payments;
-                ++payments;
-                pblock->vtx[0].vout.resize(payments);
-
-                pblock->vtx[0].vout[2].scriptPubKey = payee;
-                pblock->vtx[0].vout[2].nValue = 0;
-        
-                pblock->vtx[0].vout[1].scriptPubKey = payeerewardaddress;
-                pblock->vtx[0].vout[1].nValue = 0;        
-
-                CTxDestination address1;
-                ExtractDestination(payee, address1);
-                CCropCoincoinAddress address2(address1);
-        
-                CTxDestination address3;
-                ExtractDestination(payeerewardaddress, address3);
-                CCropCoincoinAddress address4(address3);
-
-                LogPrintf("Masternode payment to %s\n", address2.ToString().c_str());
-            }*/
-
-            int64_t blockValue = GetProofOfWorkReward(pindexPrev->nHeight + 1, nFees);
-            /*int64_t masternodePayment = GetMasternodePayment(pindexPrev->nHeight+1, blockValue);
-
-            // Set output amount
-            
-            if(payments == 2) // masternode payment, no reward split
-            {
-                pblock->vtx[0].vout[1].nValue = masternodePayment;
-                blockValue -= masternodePayment;
-            }
-            if(payments == 3) // masternode payment, reward split
-            {
-                int64_t rewardAmount = (masternodePayment / 100) * (100 - payeerewardpercent);
-                pblock->vtx[0].vout[2].nValue = rewardAmount;
-                pblock->vtx[0].vout[1].nValue = masternodePayment - rewardAmount;
-                blockValue -= masternodePayment;
-            }*/
-
-            pblock->vtx[0].vout[0].nValue = blockValue;
-            //pblocktemplate->vTxFees[0] = -nFees;
+              int64_t blockValue = GetProofOfWorkReward(pindexPrev->nHeight + 1, nFees);
+              pblock->vtx[0].vout[0].nValue = blockValue;
         }
         
         if (pFees)
@@ -615,7 +532,7 @@ void ThreadStakeMiner(CWallet *pwallet)
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
 
     // Make this thread recognisable as the mining thread
-    RenameThread("crop-miner");
+    RenameThread("yoba-miner");
 
     CReserveKey reservekey(pwallet);
 
